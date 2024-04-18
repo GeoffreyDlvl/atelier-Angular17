@@ -18,26 +18,24 @@ import { IdeasComponent } from './ideas/ideas.component';
 
 
 @NgModule({
-  declarations: [
-    RecipeListComponent,
-    RecipeComponent,
-    RecipeFormComponent,
-    V1Component,
-    V2Component,
-    ShoppingListComponent,
-    IdeasComponent
-  ],
-  imports: [
-    CommonModule,
-    RecipeRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatInputModule,
-    MatStepperModule,
-    NgOptimizedImage
-  ]
+    imports: [
+        CommonModule,
+        RecipeRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatInputModule,
+        MatStepperModule,
+        NgOptimizedImage,
+        RecipeListComponent,
+        RecipeComponent,
+        RecipeFormComponent,
+        V1Component,
+        V2Component,
+        ShoppingListComponent,
+        IdeasComponent
+    ]
 })
 export class RecipeModule { }
