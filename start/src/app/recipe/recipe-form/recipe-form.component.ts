@@ -1,8 +1,17 @@
 import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  UntypedFormArray,
+  UntypedFormControl,
+  UntypedFormGroup,
+  ValidatorFn,
+  Validators,
+  ReactiveFormsModule,
+  FormGroup, FormControl, FormArray
+} from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Recipe, RecipeType, UnitOfMeasurement } from '../models/recipe';
+import {Ingredient, Recipe, RecipeType, RecipeV1, RecipeV2, UnitOfMeasurement} from '../models/recipe';
 import { RecipeService } from '../services/recipe.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
@@ -22,13 +31,14 @@ export function enumValidator(enumType: any): ValidatorFn {
   };
 }
 
-// type IngredientsForm = FormGroup<{
-//   quantity: FormControl<number>;
-//   unit: FormControl<UnitOfMeasurement>;
-//   name: FormControl<string>;
-// }>;
+type IngredientsForm = FormGroup<{
+  quantity: FormControl<number>;
+  unit: FormControl<UnitOfMeasurement>;
+  name: FormControl<string>;
+}>;
 
-// type InstructionForm = FormControl<string>;
+type InstructionForm = FormControl<string>;
+
 @Component({
     selector: 'app-recipe-form',
     templateUrl: './recipe-form.component.html',
@@ -43,18 +53,20 @@ export class RecipeFormComponent implements OnInit {
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
 
-  public formGroup = new UntypedFormGroup({
-    id: new UntypedFormControl(null),
-    name: new UntypedFormControl('', {
-      validators: [Validators.required, Validators.min(3)]
+  public formGroup = new FormGroup({
+    id: new FormControl<number | null>(null),
+    name: new FormControl('', {
+      validators: [Validators.required, Validators.min(3)],
+      nonNullable: true
     }),
-    photo: new UntypedFormControl(''),
-    type: new UntypedFormControl(RecipeType.None, {
-      validators: [Validators.required, enumValidator(RecipeType)]
+    photo: new FormControl('', { nonNullable: true }),
+    type: new FormControl<RecipeType>(RecipeType.None, {
+      validators: [Validators.required, enumValidator(RecipeType)],
+      nonNullable: true
     }),
-    ingredients: new UntypedFormArray([]),
-    instructions: new UntypedFormArray([]),
-    version: new UntypedFormControl('v2')
+    ingredients: new FormArray<IngredientsForm>([]),
+    instructions: new FormArray<InstructionForm>([]),
+    version: new FormControl<'v2'>('v2', { nonNullable: true })
   });
 
   recipeTypes:Array<string> = Object.values(RecipeType);
@@ -67,15 +79,16 @@ export class RecipeFormComponent implements OnInit {
   }
 
   get ingredientsForm() {
-    return this.formGroup.get('ingredients') as UntypedFormArray;
+    return this.formGroup.controls.ingredients
+    // return this.formGroup.get('ingredients') as FormArray;
   }
 
   addIngredient(): void {
-    this.ingredientsForm.push(new UntypedFormGroup({
-      quantity: new UntypedFormControl(0),
-      name: new UntypedFormControl(''),
-      unit: new UntypedFormControl(UnitOfMeasurement.None)
-    }));
+    this.ingredientsForm.push(new FormGroup({
+      quantity: new FormControl(0, {nonNullable: true}),
+      name: new FormControl('', {nonNullable: true}),
+      unit: new FormControl<UnitOfMeasurement>(UnitOfMeasurement.None, {nonNullable: true})
+    },));
   }
 
   removeIngredientAt(index: number) : void {
@@ -83,11 +96,12 @@ export class RecipeFormComponent implements OnInit {
   }
 
   get instructionsForm() {
-    return this.formGroup.get('instructions') as UntypedFormArray;
+    return this.formGroup.controls.instructions;
+    // return this.formGroup.get('instructions') as UntypedFormArray;
   }
 
   addInstruction(): void {
-    this.instructionsForm.push(new UntypedFormControl(''));
+    this.instructionsForm.push(new FormControl('', { nonNullable: true }));
   }
 
   removeInstructiontAt(index: number) : void {

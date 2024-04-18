@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup">
-  @if (!!formGroup.get('id')?.value) {
+  @if (!!formGroup.controls.id?.value) {
     <h1>Editer</h1>
   } @else {
     <h1>Créer</h1>
