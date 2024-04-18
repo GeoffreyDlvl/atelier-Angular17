@@ -2,14 +2,14 @@ import { Component, inject } from '@angular/core';
 import { Recipe } from '../models/recipe';
 import { ShoppingService } from '../services/shopping.service';
 import { MatIcon } from '@angular/material/icon';
-import { NgIf, NgFor } from '@angular/common';
+
 
 @Component({
     selector: 'app-shopping-list',
     templateUrl: './shopping-list.component.html',
     styleUrl: './shopping-list.component.css',
     standalone: true,
-    imports: [NgIf, NgFor, MatIcon]
+    imports: [MatIcon]
 })
 export class ShoppingListComponent {
   private shoppingService = inject(ShoppingService);

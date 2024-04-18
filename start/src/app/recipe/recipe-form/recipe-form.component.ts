@@ -11,7 +11,7 @@ import { MatSelect } from '@angular/material/select';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatStepper, MatStep, MatStepLabel, MatStepContent, MatStepperNext, MatStepperPrevious } from '@angular/material/stepper';
-import { NgIf, NgFor } from '@angular/common';
+
 
 export function enumValidator(enumType: any): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -34,7 +34,7 @@ export function enumValidator(enumType: any): ValidatorFn {
     templateUrl: './recipe-form.component.html',
     styleUrl: './recipe-form.component.css',
     standalone: true,
-    imports: [ReactiveFormsModule, NgIf, MatStepper, MatStep, MatStepLabel, MatStepContent, MatFormField, MatLabel, MatInput, MatSelect, NgFor, MatOption, MatButton, MatStepperNext, MatIcon, MatStepperPrevious, RouterLink]
+    imports: [ReactiveFormsModule, MatStepper, MatStep, MatStepLabel, MatStepContent, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatButton, MatStepperNext, MatIcon, MatStepperPrevious, RouterLink]
 })
 export class RecipeFormComponent implements OnInit {
   @Input() recipe?: Recipe;
