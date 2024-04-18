@@ -13,7 +13,7 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class ShoppingListComponent {
   private shoppingService = inject(ShoppingService);
-  protected recipeList: Recipe[] = this.shoppingService.recipesSelected
+  protected recipeList: Recipe[] = this.shoppingService.recipesSelected()
   protected shoppingList: string[] = this.shoppingService.shoppingList;
 
   protected removeSelectedRecipe(recipe: Recipe): void {
@@ -27,7 +27,7 @@ export class ShoppingListComponent {
   }
 
   private refreshList(): void {
-    this.recipeList = this.shoppingService.recipesSelected;
+    this.recipeList = this.shoppingService.recipesSelected();
     this.shoppingList = this.shoppingService.shoppingList;
   }
 }

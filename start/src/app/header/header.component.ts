@@ -20,5 +20,5 @@ import {MatButton} from "@angular/material/button";
   ]
 })
 export class HeaderComponent {
-  protected recipeSelectedEvent = inject(ShoppingService).recipeSelectedEvent;
+  protected recipeSelected = inject(ShoppingService).recipesSelected;
 }

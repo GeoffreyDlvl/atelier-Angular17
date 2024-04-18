@@ -6,7 +6,7 @@
         <button mat-button routerLink="recipes/create" routerLinkActive="active">
             Créer une recette
         </button>
-        <button mat-button routerLink="recipes/shopping" routerLinkActive="active" [matBadge]="(recipeSelectedEvent | async)?.length ?? 0" matBadgeColor="warn">
+        <button mat-button routerLink="recipes/shopping" routerLinkActive="active" [matBadge]="recipeSelected().length ?? 0" matBadgeColor="warn">
             Liste de courses
         </button>
     </nav>
