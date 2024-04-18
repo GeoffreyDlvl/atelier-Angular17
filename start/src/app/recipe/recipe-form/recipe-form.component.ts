@@ -4,7 +4,6 @@ import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup
 import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe, RecipeType, UnitOfMeasurement } from '../models/recipe';
 import { RecipeService } from '../services/recipe.service';
-import { getFromResolvers } from '../../utility';
 
 export function enumValidator(enumType: any): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -28,8 +27,8 @@ export function enumValidator(enumType: any): ValidatorFn {
     styleUrl: './recipe-form.component.css'
 })
 export class RecipeFormComponent implements OnInit {
-  recipe?: Recipe = getFromResolvers<Recipe>('recipe');
-  
+  @Input() recipe?: Recipe;
+
   private recipeService = inject(RecipeService);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
@@ -38,7 +37,7 @@ export class RecipeFormComponent implements OnInit {
     id: new UntypedFormControl(null),
     name: new UntypedFormControl('', {
       validators: [Validators.required, Validators.min(3)]
-    }), 
+    }),
     photo: new UntypedFormControl(''),
     type: new UntypedFormControl(RecipeType.None, {
       validators: [Validators.required, enumValidator(RecipeType)]
@@ -48,9 +47,9 @@ export class RecipeFormComponent implements OnInit {
     version: new UntypedFormControl('v2')
   });
 
-  recipeTypes:Array<string> = Object.values(RecipeType); 
-  unitOfMeasure:Array<string> = Object.values(UnitOfMeasurement); 
-  
+  recipeTypes:Array<string> = Object.values(RecipeType);
+  unitOfMeasure:Array<string> = Object.values(UnitOfMeasurement);
+
   ngOnInit(): void {
     if (!this.recipe || this.recipe.version !== 'v2') return;
     this.recipe.ingredients.forEach(() => this.addIngredient());
