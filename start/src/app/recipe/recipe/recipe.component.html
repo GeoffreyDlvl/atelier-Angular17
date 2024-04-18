@@ -1,6 +1,6 @@
 @if(!!recipe) {
   @if(recipe.photo) {
-    <img [src]="recipe.photo">
+    <img [ngSrc]="recipe.photo">
   }
   <h1>Recette {{recipe.name}}</h1>
 

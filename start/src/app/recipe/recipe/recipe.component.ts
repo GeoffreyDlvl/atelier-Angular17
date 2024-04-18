@@ -4,6 +4,7 @@ import { ShoppingService } from '../services/shopping.service';
 import { MatButton } from '@angular/material/button';
 import { V2Component } from './v2/v2.component';
 import { V1Component } from './v1/v1.component';
+import {NgOptimizedImage} from "@angular/common";
 
 
 @Component({
@@ -11,7 +12,7 @@ import { V1Component } from './v1/v1.component';
     templateUrl: './recipe.component.html',
     styleUrl: './recipe.component.css',
     standalone: true,
-    imports: [V1Component, V2Component, MatButton]
+  imports: [V1Component, V2Component, MatButton, NgOptimizedImage]
 })
 export class RecipeComponent {
   @Input() recipe?: Recipe;
