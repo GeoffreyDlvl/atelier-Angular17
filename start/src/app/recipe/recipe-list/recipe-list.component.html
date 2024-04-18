@@ -20,9 +20,15 @@
   <button mat-button color="primary" [routerLink]="'create'">Créer une recette</button>
 </section>
 
-@if (!displayIdeas) {
-  <button (click)="displayIdeas = true"><mat-icon fontIcon="people" /></button>
-}
-@if (!!displayIdeas) {
+
+<!--<button #ideas><mat-icon fontIcon="people" /></button>-->
+<!--@defer (on interaction(ideas); prefetch on hover(ideas)) {-->
+<!--  <app-ideas />-->
+<!--}-->
+
+@defer (on interaction; prefetch on hover) {
   <app-ideas />
+} @placeholder {
+  <button ><mat-icon fontIcon="people" /></button>
 }
+
